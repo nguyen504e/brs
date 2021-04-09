@@ -14,12 +14,11 @@
     "@babel/core": "^7.13.14",
     "@babel/preset-env": "^7.13.12",
     "@babel/preset-react": "^7.13.13",
-    "@hot-loader/react-dom": "^17.0.1",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
     "@react-hook/async": "^3.1.1",
     "@react-hook/debounce": "^3.0.0",
-    "ace-builds": "^1.4.12",
     "babel-loader": "^8.2.2",
+    "babel-plugin-prismjs": "^2.0.1",
     "bootstrap": "^4.6.0",
     "classnames": "^2.3.0",
     "clean-webpack-plugin": "^3.0.0",
@@ -34,7 +33,6 @@
     "prettier": "^2.2.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
-    "react-ace": "^9.4.0",
     "react-bootstrap": "^1.5.2",
     "react-codejar": "^1.0.2",
     "react-dom": "^17.0.2",
@@ -53,10 +51,12 @@
     "graphql": "^15.5.0",
     "lodash": "^4.17.21",
     "mongodb": "^3.6.5",
+    "prismjs": "^1.23.0",
     "react-hot-loader": "^4.13.0",
-    "remark": "^13.0.0",
-    "remark-html": "^13.0.1",
-    "remark-preset-lint-recommended": "^5.0.0",
-    "vfile-reporter": "^6.0.2"
+    "rehype-prism": "^0.1.1",
+    "rehype-stringify": "^8.0.0",
+    "remark-parse": "^9.0.0",
+    "remark-rehype": "^8.0.0",
+    "unified": "^9.2.1"
   }
 }

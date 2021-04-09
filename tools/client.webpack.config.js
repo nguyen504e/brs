@@ -1,24 +1,31 @@
-const webpack = require('webpack')
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
-const BabelReactRefresh = require('react-refresh/babel')
-const WebpackBar = require('webpackbar')
+const webpack = require('webpack');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const WebpackBar = require('webpackbar');
 
 module.exports = (env, argv) => {
-  const isDevelopment = argv.mode !== 'production'
-  const babelPlugins = []
+  const isDevelopment = argv.mode !== 'production';
+  const babelPlugins = [];
   const webpackPlugins = [
     new HtmlWebpackPlugin({ appMountId: 'app', template: './src/client/index.html', title: 'DEMO' }),
     new LodashModuleReplacementPlugin(),
     new CleanWebpackPlugin(),
     new WebpackBar({ profile: true }),
-  ]
+  ];
   if (isDevelopment) {
-    babelPlugins.push(BabelReactRefresh)
-    webpackPlugins.push(new webpack.HotModuleReplacementPlugin(), new ReactRefreshWebpackPlugin())
+    babelPlugins.push('react-refresh/babel', [
+      'prismjs',
+      {
+        languages: ['markdown', 'js'],
+        plugins: ['line-numbers'],
+        theme: 'default',
+        css: true,
+      },
+    ]);
+    webpackPlugins.push(new webpack.HotModuleReplacementPlugin(), new ReactRefreshWebpackPlugin());
   }
 
   return {
@@ -53,6 +60,7 @@ module.exports = (env, argv) => {
           },
         },
         { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
+        { test: /\.css$/, use: ['style-loader', 'css-loader'] },
       ],
     },
     devServer: { contentBase: '../dist/client' },
@@ -65,5 +73,5 @@ module.exports = (env, argv) => {
         },
       },
     },
-  }
-}
+  };
+};

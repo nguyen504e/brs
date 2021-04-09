@@ -5,12 +5,25 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
-import remark from 'remark';
-import recommended from 'remark-preset-lint-recommended';
-import html from 'remark-html';
 import { useAsyncEffect } from '@react-hook/async';
 
 import { ReactCodeJar } from 'react-codejar';
+
+import Prism from 'prismjs';
+
+import unified from 'unified';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import rehypeStringify from 'rehype-stringify';
+import rehypePrism from 'rehype-prism';
+
+window.Prism = { manual: true };
+
+const processor = unified()
+  .use(remarkParse)
+  .use(remarkRehype)
+  .use(rehypePrism, { preLangClass: true })
+  .use(rehypeStringify);
 
 const MODE = {
   EDIT: 'EDIT',
@@ -26,9 +39,9 @@ const compileMd = async md => {
   if (!md) {
     return <></>;
   }
-  const data = await remark().use(recommended).use(html).process(md);
+  const data = await processor.process(md);
   return (
-    <div
+    <div classNames="line-numbers"
       dangerouslySetInnerHTML={{
         __html: data.contents,
       }}
@@ -38,13 +51,13 @@ const compileMd = async md => {
 
 const highlight = editor => {
   let code = editor.textContent;
-  code = code.replace(/\((\w+?)(\b)/g, '(<font color="#8a2be2">$1</font>$2');
+  code = Prism.highlight(code, Prism.languages.markdown, 'markdown');
   editor.innerHTML = code;
 };
 
 const ContentEditor = ({ className }) => {
   const [mode, setMode] = useState(MODE.EDIT);
-  const [markdownText, setMarkdownText] = useState('');
+  const [markdownText, setMarkdownText] = useState('\n');
   const { status, value } = useAsyncEffect(() => {
     if (mode === MODE.EDIT) {
       return Promise.resolve(<></>);
@@ -74,7 +87,7 @@ const ContentEditor = ({ className }) => {
       <Card.Body>
         {isEdit && (
           <ReactCodeJar
-            code={setMarkdownText} // Initial code value
+            code={markdownText} // Initial code value
             onUpdate={setMarkdownText} // Update the text
             highlight={highlight} // Highlight function, receive the editor
           />
