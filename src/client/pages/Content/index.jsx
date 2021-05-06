@@ -2,8 +2,8 @@ import React from 'react'
 
 import ContentEditor from '../../components/ContentEditor'
 
-const Content = () => {
+const ContentPage = () => {
   return <ContentEditor></ContentEditor>
 }
 
-export default Content
+export default ContentPage

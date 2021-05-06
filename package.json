@@ -45,7 +45,8 @@
     "webpack": "^5.30.0",
     "webpack-cli": "^4.6.0",
     "webpack-dev-server": "^3.11.2",
-    "webpackbar": "^5.0.0-3"
+    "webpackbar": "^5.0.0-3",
+    "zustand": "^3.5.0"
   },
   "dependencies": {
     "apollo-datasource-mongodb": "^0.3.1",

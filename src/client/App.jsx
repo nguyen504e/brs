@@ -1,11 +1,11 @@
 import React from 'react'
 
-import Content from './pages/Content'
+import ContentPage from './pages/Content'
 
 const App = () => {
   return (
     <div>
-      <Content></Content>
+      <ContentPage></ContentPage>
     </div>
   )
 }
